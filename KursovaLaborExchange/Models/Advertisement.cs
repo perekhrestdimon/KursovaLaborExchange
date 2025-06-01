@@ -14,9 +14,15 @@ namespace KursovaLaborExchange.Models
         public string Address { get; set; }
         public string IndustryType { get; set; }
 
-        public Employer(string companyName)
+        // Fix for CS0106: Removed the invalid 'required' modifier.
+        // Fix for IDE0290: Converted to a primary constructor.
+        public Advertisement(string companyName, string contactPerson, string contactDetails, string address, string industryType)
         {
             CompanyName = companyName;
+            ContactPerson = contactPerson;
+            ContactDetails = contactDetails;
+            Address = address;
+            IndustryType = industryType;
         }
     }
 }
