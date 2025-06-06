@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="AddVacancy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="EditVacancy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AddWorker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PrintAdWorker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PrintVacancy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
