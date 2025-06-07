@@ -22,3 +22,4 @@ C:\Users\perek\OneDrive\Рабочий стол\Курсова\Code\KursovaLabor
 C:\Users\perek\OneDrive\Рабочий стол\Курсова\Code\KursovaLaborExchange\KursovaLaborExchange\obj\Debug\net8.0-windows\KursovaLaborExchange.EditVacancy.resources
 C:\Users\perek\OneDrive\Рабочий стол\Курсова\Code\KursovaLaborExchange\KursovaLaborExchange\obj\Debug\net8.0-windows\KursovaLaborExchange.PrintAdEdit.resources
 C:\Users\perek\OneDrive\Рабочий стол\Курсова\Code\KursovaLaborExchange\KursovaLaborExchange\obj\Debug\net8.0-windows\KursovaLaborExchange.PrintAdWorker.resources
+C:\Users\perek\OneDrive\Рабочий стол\Курсова\Code\KursovaLaborExchange\KursovaLaborExchange\obj\Debug\net8.0-windows\KursovaLaborExchange.Forms.MainForm.resources

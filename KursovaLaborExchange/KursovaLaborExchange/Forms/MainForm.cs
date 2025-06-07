@@ -1,7 +1,7 @@
 ﻿using KursovaLaborExchange.Models;
 using System.Windows.Forms;
 
-namespace KursovaLaborExchange
+namespace KursovaLaborExchange.Forms
 {
     public partial class MainForm : Form
     {
@@ -469,6 +469,16 @@ namespace KursovaLaborExchange
             // Open the PrintAd form as a dialog
             var printAdForm = new PrintAd();
             printAdForm.ShowDialog();
+        }
+
+        // Add the missing event handler method for Results_SelectedIndexChanged  
+        private void Results_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Handle the event when a new item is selected in the Results ListBox  
+            if (Results.SelectedItem != null)
+            {
+                MessageBox.Show($"Selected item: {Results.SelectedItem.ToString()}", "Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 
