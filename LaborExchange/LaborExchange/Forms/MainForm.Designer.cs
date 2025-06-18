@@ -1,4 +1,5 @@
-﻿namespace LaborExchange
+﻿
+namespace LaborExchange
 {
     partial class MainForm
     {
@@ -61,6 +62,7 @@
             вакансіюToolStripMenuItem = new ToolStripMenuItem();
             працевлаштуватисяToolStripMenuItem = new ToolStripMenuItem();
             звільнитисяToolStripMenuItem = new ToolStripMenuItem();
+            змінитиToolStripMenuItem = new ToolStripMenuItem();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -299,7 +301,7 @@
             // 
             // додатковіДіїToolStripMenuItem
             // 
-            додатковіДіїToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { додатиToolStripMenuItem });
+            додатковіДіїToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { додатиToolStripMenuItem, змінитиToolStripMenuItem });
             додатковіДіїToolStripMenuItem.Name = "додатковіДіїToolStripMenuItem";
             додатковіДіїToolStripMenuItem.Size = new Size(177, 36);
             додатковіДіїToolStripMenuItem.Text = "Додаткові дії";
@@ -308,7 +310,7 @@
             // 
             додатиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { анкетуToolStripMenuItem, вакансіюToolStripMenuItem });
             додатиToolStripMenuItem.Name = "додатиToolStripMenuItem";
-            додатиToolStripMenuItem.Size = new Size(227, 44);
+            додатиToolStripMenuItem.Size = new Size(359, 44);
             додатиToolStripMenuItem.Text = "Додати";
             // 
             // анкетуToolStripMenuItem
@@ -335,6 +337,12 @@
             звільнитисяToolStripMenuItem.Size = new Size(166, 36);
             звільнитисяToolStripMenuItem.Text = "Звільнитися";
             // 
+            // змінитиToolStripMenuItem
+            // 
+            змінитиToolStripMenuItem.Name = "змінитиToolStripMenuItem";
+            змінитиToolStripMenuItem.Size = new Size(359, 44);
+            змінитиToolStripMenuItem.Text = "Змінити";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -358,6 +366,11 @@
             menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -394,5 +407,6 @@
         private ToolStripMenuItem вакансіюToolStripMenuItem;
         private ToolStripMenuItem працевлаштуватисяToolStripMenuItem;
         private ToolStripMenuItem звільнитисяToolStripMenuItem;
+        private ToolStripMenuItem змінитиToolStripMenuItem;
     }
 }

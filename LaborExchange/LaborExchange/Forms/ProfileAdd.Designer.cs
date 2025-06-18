@@ -278,6 +278,13 @@
             ResumeLayout(false);
         }
 
+        
+
+        private void ProfileAdd_Load(object sender, EventArgs e)
+        {
+            
+        }
+
         #endregion
 
         private Panel panel1;

@@ -271,8 +271,23 @@
             MinimumSize = new Size(1461, 760);
             Name = "ProfileEdit";
             Text = "Зміна анкети";
+            Load += ProfileEdit_Load;
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        // Add the missing event handler method for textBox1_TextChanged  
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            // Implement the logic for handling the TextChanged event here.  
+            // For now, this is left empty as the specific functionality is not provided.  
+        }
+
+        // Add the missing event handler method for ProfileEdit_Load  
+        private void ProfileEdit_Load(object sender, EventArgs e)
+        {
+            // Implement the logic for handling the Load event here.  
+            // For now, this is left empty as the specific functionality is not provided.  
         }
 
         #endregion

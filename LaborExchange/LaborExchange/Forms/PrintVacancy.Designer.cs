@@ -182,6 +182,7 @@
             MinimumSize = new Size(1459, 759);
             Name = "PrintVacancy";
             Text = "Друк оголошення";
+            Load += PrintVacancy_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using LaborExchange.Class;
+using LaborExchange.Forms;
 
 namespace LaborExchange
 {
@@ -12,34 +12,44 @@ namespace LaborExchange
         {
             InitializeComponent();
 
-            // Прив'язка подій до кнопок пошуку
+            // Прив'язка кнопок пошуку
             button1.Click += Button1_Click;
             button2.Click += Button2_Click;
 
-            // Прив'язка події завантаження форми
+            // Пошук по Enter для вакансій
+            textBox1.KeyDown += VacancySearch_Enter;
+            textBox2.KeyDown += VacancySearch_Enter;
+            textBox3.KeyDown += VacancySearch_Enter;
+            textBox4.KeyDown += VacancySearch_Enter;
+
+            // Пошук по Enter для кандидатів
+            textBox5.KeyDown += CandidateSearch_Enter;
+            textBox6.KeyDown += CandidateSearch_Enter;
+            textBox7.KeyDown += CandidateSearch_Enter;
+            textBox8.KeyDown += CandidateSearch_Enter;
+
+            // Меню
+            анкетуToolStripMenuItem.Click += AddCandidate_Click;
+            вакансіюToolStripMenuItem.Click += AddVacancy_Click;
+            працевлаштуватисяToolStripMenuItem.Click += ArchiveSelected_Click;
+            звільнитисяToolStripMenuItem.Click += DeleteSelected_Click;
+            друкОголошенняToolStripMenuItem.Click += PrintSelected_Click;
+
+            // Завантаження форми
             this.Load += MainForm_Load;
         }
 
-        // Генерація тестових даних та початковий вивід
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // Очищаємо старі записи перед генерацією тестових
             EmploymentCenter.Records.Clear();
-
-            // Генеруємо 10 тестових пар: вакансій + кандидатів
-            EmploymentCenter center = new EmploymentCenter();
-            center.GenerateTestData(10);
-
-            // Показуємо всі записи (і вакансії, і кандидати) у listBox1
-            listBox1.DataSource = null;
-            listBox1.DataSource = EmploymentCenter.Records;
-            listBox1.DisplayMember = ""; // ToString() використовується для відображення
+            new EmploymentCenter().GenerateTestData(10);
+            ShowAllRecords();
         }
 
         // Пошук вакансій
         private void Button1_Click(object sender, EventArgs e)
         {
-            var vacancyPattern = new Vacancy
+            var pattern = new Vacancy
             {
                 Employer = textBox1.Text.Trim(),
                 JobTitle = textBox2.Text.Trim(),
@@ -47,23 +57,22 @@ namespace LaborExchange
                 Accommodation = textBox4.Text.Trim()
             };
 
-            var found = EmploymentCenter.SearchRecords(vacancyPattern)
+            var found = EmploymentCenter.SearchRecords(pattern)
                 .OfType<Vacancy>()
                 .Where(v => !v.Archived)
                 .ToList();
 
             if (found.Count == 0)
-                MessageBox.Show("Вакансій за заданими критеріями не знайдено.", "Результат пошуку", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Вакансій не знайдено!", "Пошук", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             listBox1.DataSource = null;
             listBox1.DataSource = found;
-            listBox1.DisplayMember = ""; // Використовується ToString()
         }
 
-        // Пошук кандидатів (робітників)
+        // Пошук кандидатів
         private void Button2_Click(object sender, EventArgs e)
         {
-            var profilePattern = new CandidateProfile
+            var pattern = new CandidateProfile
             {
                 Specialization = textBox5.Text.Trim(),
                 EducationLevel = textBox6.Text.Trim(),
@@ -71,27 +80,132 @@ namespace LaborExchange
                 PreviousWorkplace = textBox8.Text.Trim()
             };
 
-            var found = EmploymentCenter.SearchRecords(profilePattern)
+            var found = EmploymentCenter.SearchRecords(pattern)
                 .OfType<CandidateProfile>()
                 .Where(c => !c.Archived)
                 .ToList();
 
             if (found.Count == 0)
-                MessageBox.Show("Кандидатів за заданими критеріями не знайдено.", "Результат пошуку", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Кандидатів не знайдено!", "Пошук", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             listBox1.DataSource = null;
             listBox1.DataSource = found;
-            listBox1.DisplayMember = ""; // Використовується ToString()
         }
 
-        private void toolStripComboBox1_Click(object sender, EventArgs e)
+        // Пошук вакансій по Enter
+        private void VacancySearch_Enter(object sender, KeyEventArgs e)
         {
-
+            if (e.KeyCode == Keys.Enter)
+            {
+                Button1_Click(sender, EventArgs.Empty);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        // Пошук кандидатів по Enter
+        private void CandidateSearch_Enter(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Button2_Click(sender, EventArgs.Empty);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
 
+        // Додати кандидата
+        private void AddCandidate_Click(object sender, EventArgs e)
+        {
+            using (var form = new ProfileAdd())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    EmploymentCenter.AddRecord(form.CandidateProfile);
+                    MessageBox.Show("Анкету додано!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ShowAllRecords();
+                }
+            }
+        }
+
+        // Додати вакансію
+        private void AddVacancy_Click(object sender, EventArgs e)
+        {
+            using (var form = new VacancyAdd())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    EmploymentCenter.AddRecord(form.Vacancy);
+                    MessageBox.Show("Вакансію додано!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ShowAllRecords();
+                }
+            }
+        }
+
+        // Архівація (працевлаштуватися)
+        private void ArchiveSelected_Click(object sender, EventArgs e)
+        {
+            var selected = listBox1.SelectedItem;
+            if (selected is Vacancy v)
+            {
+                v.Archived = true;
+                MessageBox.Show("Вакансію архівовано!", "Архів", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (selected is CandidateProfile c)
+            {
+                c.Archived = true;
+                MessageBox.Show("Кандидата архівовано!", "Архів", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Оберіть запис зі списку!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            ShowAllRecords();
+        }
+
+        // Видалення
+        private void DeleteSelected_Click(object sender, EventArgs e)
+        {
+            var selected = listBox1.SelectedItem;
+            if (selected is RecordBase rec)
+            {
+                EmploymentCenter.RemoveRecord(rec);
+                MessageBox.Show("Запис видалено!", "Видалення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ShowAllRecords();
+            }
+            else
+            {
+                MessageBox.Show("Оберіть запис зі списку!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        // Друк
+        private void PrintSelected_Click(object sender, EventArgs e)
+        {
+            var selected = listBox1.SelectedItem;
+            if (selected is CandidateProfile prof)
+            {
+                using (var form = new PrintProfile(prof))
+                    form.ShowDialog();
+            }
+            else if (selected is Vacancy vac)
+            {
+                using (var form = new PrintVacancy(vac))
+                    form.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Оберіть запис для друку!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        // Показати всі неархівовані записи (початковий вивід і після змін)
+        private void ShowAllRecords()
+        {
+            listBox1.DataSource = null;
+            listBox1.DataSource = EmploymentCenter.Records
+                .Where(r => (r is Vacancy v && !v.Archived) || (r is CandidateProfile c && !c.Archived))
+                .ToList();
         }
     }
 }
