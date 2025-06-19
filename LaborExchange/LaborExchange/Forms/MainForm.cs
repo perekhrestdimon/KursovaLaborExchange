@@ -34,6 +34,7 @@ namespace LaborExchange
             працевлаштуватисяToolStripMenuItem.Click += ArchiveSelected_Click;
             звільнитисяToolStripMenuItem.Click += DeleteSelected_Click;
             друкОголошенняToolStripMenuItem.Click += PrintSelected_Click;
+            змінитиToolStripMenuItem.Click += EditSelected_Click; // Додаємо підписку на "Змінити"
 
             // Завантаження форми
             this.Load += MainForm_Load;
@@ -196,6 +197,38 @@ namespace LaborExchange
             else
             {
                 MessageBox.Show("Оберіть запис для друку!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        // ЗМІНИТИ (редагування)
+        private void EditSelected_Click(object sender, EventArgs e)
+        {
+            var selected = listBox1.SelectedItem;
+            if (selected is CandidateProfile candidate)
+            {
+                using (var editForm = new ProfileEdit(candidate))
+                {
+                    if (editForm.ShowDialog() == DialogResult.OK)
+                    {
+                        MessageBox.Show("Анкету оновлено!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ShowAllRecords();
+                    }
+                }
+            }
+            else if (selected is Vacancy vacancy)
+            {
+                using (var editForm = new VacancyEdit(vacancy))
+                {
+                    if (editForm.ShowDialog() == DialogResult.OK)
+                    {
+                        MessageBox.Show("Вакансію оновлено!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ShowAllRecords();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Оберіть анкету або вакансію для редагування!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

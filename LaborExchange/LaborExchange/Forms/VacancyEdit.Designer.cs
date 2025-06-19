@@ -41,8 +41,6 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            button1 = new Button();
-            button2 = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -161,31 +159,11 @@
             label1.TabIndex = 0;
             label1.Text = "Посада ";
             // 
-            // button1
-            // 
-            button1.Location = new Point(350, 549);
-            button1.Name = "button1";
-            button1.Size = new Size(150, 46);
-            button1.TabIndex = 1;
-            button1.Text = "Зберегти";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(810, 540);
-            button2.Name = "button2";
-            button2.Size = new Size(150, 46);
-            button2.TabIndex = 2;
-            button2.Text = "Скасувати";
-            button2.UseVisualStyleBackColor = true;
-            // 
             // VacancyEdit
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1436, 685);
-            Controls.Add(button2);
-            Controls.Add(button1);
             Controls.Add(panel1);
             MaximumSize = new Size(1462, 756);
             MinimumSize = new Size(1462, 756);
@@ -212,7 +190,5 @@
         private TextBox textBox3;
         private TextBox textBox2;
         private TextBox textBox1;
-        private Button button1;
-        private Button button2;
     }
 }
