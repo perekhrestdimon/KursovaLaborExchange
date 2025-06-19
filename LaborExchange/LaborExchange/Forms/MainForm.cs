@@ -3,11 +3,16 @@ using System.Linq;
 using System.Windows.Forms;
 using LaborExchange.Class;
 using LaborExchange.Forms;
+using System.IO;
 
 namespace LaborExchange
 {
     public partial class MainForm : Form
     {
+        private string _originalData;
+        private string _dataFile = "data.txt";
+        private bool _hasUnsavedChanges = false;
+
         public MainForm()
         {
             InitializeComponent();
@@ -34,17 +39,56 @@ namespace LaborExchange
             працевлаштуватисяToolStripMenuItem.Click += ArchiveSelected_Click;
             звільнитисяToolStripMenuItem.Click += DeleteSelected_Click;
             друкОголошенняToolStripMenuItem.Click += PrintSelected_Click;
-            змінитиToolStripMenuItem.Click += EditSelected_Click; // Додаємо підписку на "Змінити"
+            змінитиToolStripMenuItem.Click += EditSelected_Click;
 
-            // Завантаження форми
+            // Завантаження та закриття форми
             this.Load += MainForm_Load;
+            this.FormClosing += MainForm_FormClosing;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            EmploymentCenter.Records.Clear();
-            new EmploymentCenter().GenerateTestData(10);
+            if (File.Exists(_dataFile))
+            {
+                EmploymentCenter.LoadAllData(_dataFile);
+                _originalData = File.ReadAllText(_dataFile);
+            }
+            else
+            {
+                EmploymentCenter.Records.Clear();
+                new EmploymentCenter().GenerateTestData(10);
+                _originalData = ""; // або EmploymentCenter.SerializeAllToString(), якщо реалізовано
+            }
             ShowAllRecords();
+            _hasUnsavedChanges = false;
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Якщо не було змін, нічого не питаємо
+            if (!_hasUnsavedChanges)
+                return;
+
+            var result = MessageBox.Show(
+                "Ви хочете зберегти зміни?",
+                "Збереження",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question);
+
+            switch (result)
+            {
+                case DialogResult.Yes:
+                    EmploymentCenter.SaveAllData(_dataFile);
+                    _hasUnsavedChanges = false;
+                    break;
+                case DialogResult.No:
+                    // Відновити початковий стан файлу
+                    File.WriteAllText(_dataFile, _originalData ?? "");
+                    break;
+                case DialogResult.Cancel:
+                    e.Cancel = true;
+                    break;
+            }
         }
 
         // Пошук вакансій
@@ -125,6 +169,7 @@ namespace LaborExchange
                     EmploymentCenter.AddRecord(form.CandidateProfile);
                     MessageBox.Show("Анкету додано!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ShowAllRecords();
+                    _hasUnsavedChanges = true;
                 }
             }
         }
@@ -139,6 +184,7 @@ namespace LaborExchange
                     EmploymentCenter.AddRecord(form.Vacancy);
                     MessageBox.Show("Вакансію додано!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ShowAllRecords();
+                    _hasUnsavedChanges = true;
                 }
             }
         }
@@ -151,11 +197,13 @@ namespace LaborExchange
             {
                 v.Archived = true;
                 MessageBox.Show("Вакансію архівовано!", "Архів", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                _hasUnsavedChanges = true;
             }
             else if (selected is CandidateProfile c)
             {
                 c.Archived = true;
                 MessageBox.Show("Кандидата архівовано!", "Архів", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                _hasUnsavedChanges = true;
             }
             else
             {
@@ -173,6 +221,7 @@ namespace LaborExchange
                 EmploymentCenter.RemoveRecord(rec);
                 MessageBox.Show("Запис видалено!", "Видалення", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ShowAllRecords();
+                _hasUnsavedChanges = true;
             }
             else
             {
@@ -212,6 +261,7 @@ namespace LaborExchange
                     {
                         MessageBox.Show("Анкету оновлено!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ShowAllRecords();
+                        _hasUnsavedChanges = true;
                     }
                 }
             }
@@ -223,6 +273,7 @@ namespace LaborExchange
                     {
                         MessageBox.Show("Вакансію оновлено!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ShowAllRecords();
+                        _hasUnsavedChanges = true;
                     }
                 }
             }

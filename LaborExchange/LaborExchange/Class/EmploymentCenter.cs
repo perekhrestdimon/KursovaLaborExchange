@@ -94,6 +94,59 @@ namespace LaborExchange.Class
             }
         }
 
-        // Збереження та завантаження даних можна залишити як є, якщо імена класів і властивостей співпадають.
+        // --- Збереження і завантаження даних (JSON, з підтримкою типів) ---
+        public static void SaveAllData(string filename)
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                // Додаємо підтримку поліморфізму
+                Converters = { new RecordBaseJsonConverter() }
+            };
+            File.WriteAllText(filename, JsonSerializer.Serialize(Records, options));
+        }
+
+        public static void LoadAllData(string filename)
+        {
+            if (File.Exists(filename))
+            {
+                var json = File.ReadAllText(filename);
+                if (!string.IsNullOrWhiteSpace(json))
+                {
+                    var options = new JsonSerializerOptions
+                    {
+                        Converters = { new RecordBaseJsonConverter() }
+                    };
+                    var items = JsonSerializer.Deserialize<List<RecordBase>>(json, options);
+                    Records = items ?? new List<RecordBase>();
+                }
+            }
+            else
+            {
+                Records = new List<RecordBase>();
+            }
+        }
+    }
+
+    // --- Поліморфний конвертер для RecordBase (JSON) ---
+    public class RecordBaseJsonConverter : System.Text.Json.Serialization.JsonConverter<RecordBase>
+    {
+        public override RecordBase Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            using var jsonDoc = JsonDocument.ParseValue(ref reader);
+            var root = jsonDoc.RootElement;
+            if (root.TryGetProperty("JobTitle", out _))
+                return JsonSerializer.Deserialize<Vacancy>(root.GetRawText(), options);
+            else
+                return JsonSerializer.Deserialize<CandidateProfile>(root.GetRawText(), options);
+        }
+
+        public override void Write(Utf8JsonWriter writer, RecordBase value, JsonSerializerOptions options)
+        {
+            if (value is Vacancy v)
+                JsonSerializer.Serialize(writer, v, options);
+            else if (value is CandidateProfile c)
+                JsonSerializer.Serialize(writer, c, options);
+        }
     }
 }
