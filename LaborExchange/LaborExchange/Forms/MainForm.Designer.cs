@@ -60,9 +60,9 @@ namespace LaborExchange
             додатиToolStripMenuItem = new ToolStripMenuItem();
             анкетуToolStripMenuItem = new ToolStripMenuItem();
             вакансіюToolStripMenuItem = new ToolStripMenuItem();
+            змінитиToolStripMenuItem = new ToolStripMenuItem();
             працевлаштуватисяToolStripMenuItem = new ToolStripMenuItem();
             звільнитисяToolStripMenuItem = new ToolStripMenuItem();
-            змінитиToolStripMenuItem = new ToolStripMenuItem();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -93,7 +93,7 @@ namespace LaborExchange
             // 
             // button1
             // 
-            button1.Location = new Point(280, 367);
+            button1.Location = new Point(277, 383);
             button1.Name = "button1";
             button1.Size = new Size(150, 46);
             button1.TabIndex = 9;
@@ -103,7 +103,7 @@ namespace LaborExchange
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(3, 265);
+            label5.Location = new Point(3, 329);
             label5.Name = "label5";
             label5.Size = new Size(86, 32);
             label5.TabIndex = 8;
@@ -111,14 +111,14 @@ namespace LaborExchange
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(130, 258);
+            textBox4.Location = new Point(130, 329);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(560, 39);
             textBox4.TabIndex = 7;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(130, 196);
+            textBox3.Location = new Point(130, 243);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(560, 39);
             textBox3.TabIndex = 6;
@@ -126,7 +126,7 @@ namespace LaborExchange
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(3, 196);
+            label4.Location = new Point(3, 243);
             label4.Name = "label4";
             label4.Size = new Size(93, 32);
             label4.TabIndex = 5;
@@ -134,7 +134,7 @@ namespace LaborExchange
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(130, 128);
+            textBox2.Location = new Point(130, 149);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(560, 39);
             textBox2.TabIndex = 4;
@@ -142,7 +142,7 @@ namespace LaborExchange
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(3, 128);
+            label3.Location = new Point(3, 152);
             label3.Name = "label3";
             label3.Size = new Size(93, 32);
             label3.TabIndex = 3;
@@ -151,7 +151,7 @@ namespace LaborExchange
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(130, 54);
+            textBox1.Location = new Point(130, 79);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(560, 39);
             textBox1.TabIndex = 2;
@@ -159,7 +159,7 @@ namespace LaborExchange
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(3, 61);
+            label2.Location = new Point(3, 79);
             label2.Name = "label2";
             label2.Size = new Size(80, 32);
             label2.TabIndex = 1;
@@ -193,7 +193,7 @@ namespace LaborExchange
             // 
             // button2
             // 
-            button2.Location = new Point(301, 374);
+            button2.Location = new Point(302, 383);
             button2.Name = "button2";
             button2.Size = new Size(150, 46);
             button2.TabIndex = 9;
@@ -216,14 +216,14 @@ namespace LaborExchange
             // 
             // textBox6
             // 
-            textBox6.Location = new Point(140, 125);
+            textBox6.Location = new Point(140, 145);
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(516, 39);
             textBox6.TabIndex = 6;
             // 
             // textBox5
             // 
-            textBox5.Location = new Point(140, 50);
+            textBox5.Location = new Point(140, 72);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(516, 39);
             textBox5.TabIndex = 5;
@@ -249,7 +249,7 @@ namespace LaborExchange
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(3, 128);
+            label8.Location = new Point(3, 152);
             label8.Name = "label8";
             label8.Size = new Size(84, 32);
             label8.TabIndex = 2;
@@ -258,7 +258,7 @@ namespace LaborExchange
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(3, 57);
+            label7.Location = new Point(0, 79);
             label7.Name = "label7";
             label7.Size = new Size(117, 32);
             label7.TabIndex = 1;
@@ -310,7 +310,7 @@ namespace LaborExchange
             // 
             додатиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { анкетуToolStripMenuItem, вакансіюToolStripMenuItem });
             додатиToolStripMenuItem.Name = "додатиToolStripMenuItem";
-            додатиToolStripMenuItem.Size = new Size(359, 44);
+            додатиToolStripMenuItem.Size = new Size(235, 44);
             додатиToolStripMenuItem.Text = "Додати";
             // 
             // анкетуToolStripMenuItem
@@ -325,6 +325,12 @@ namespace LaborExchange
             вакансіюToolStripMenuItem.Size = new Size(248, 44);
             вакансіюToolStripMenuItem.Text = "Вакансію";
             // 
+            // змінитиToolStripMenuItem
+            // 
+            змінитиToolStripMenuItem.Name = "змінитиToolStripMenuItem";
+            змінитиToolStripMenuItem.Size = new Size(235, 44);
+            змінитиToolStripMenuItem.Text = "Змінити";
+            // 
             // працевлаштуватисяToolStripMenuItem
             // 
             працевлаштуватисяToolStripMenuItem.Name = "працевлаштуватисяToolStripMenuItem";
@@ -336,12 +342,6 @@ namespace LaborExchange
             звільнитисяToolStripMenuItem.Name = "звільнитисяToolStripMenuItem";
             звільнитисяToolStripMenuItem.Size = new Size(166, 36);
             звільнитисяToolStripMenuItem.Text = "Звільнитися";
-            // 
-            // змінитиToolStripMenuItem
-            // 
-            змінитиToolStripMenuItem.Name = "змінитиToolStripMenuItem";
-            змінитиToolStripMenuItem.Size = new Size(359, 44);
-            змінитиToolStripMenuItem.Text = "Змінити";
             // 
             // MainForm
             // 
