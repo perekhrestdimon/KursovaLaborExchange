@@ -142,7 +142,7 @@ namespace LaborExchange
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(3, 152);
+            label3.Location = new Point(3, 75);
             label3.Name = "label3";
             label3.Size = new Size(93, 32);
             label3.TabIndex = 3;
@@ -159,7 +159,7 @@ namespace LaborExchange
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(3, 79);
+            label2.Location = new Point(3, 152);
             label2.Name = "label2";
             label2.Size = new Size(80, 32);
             label2.TabIndex = 1;
